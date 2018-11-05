@@ -6,6 +6,7 @@ require File.expand_path('../../config/environment', __FILE__)
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
 require 'database_cleaner'
+require 'support/request_spec_helper'
 
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|
@@ -64,4 +65,6 @@ RSpec.configure do |config|
       example.run
     end
   end
+
+  config.include RequestSpecHelper, type: :request
 end
