@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :execution do
-    date {Date.now}
+    date {DateTime.now}
     association :habbit, factory: :habbit
   end
 end
