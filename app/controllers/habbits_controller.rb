@@ -3,7 +3,8 @@ class HabbitsController < ApplicationController
 
   def index
     @habbits = Habbit.all
-    json_response @habbits
+    render json: @habbits.as_json(include:
+                                      {executions: {only: [:date, :id, :habbit_id]}})
   end
 
   def show
