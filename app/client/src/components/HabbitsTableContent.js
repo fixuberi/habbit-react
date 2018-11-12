@@ -7,7 +7,8 @@ class HabbitsTableContent extends React.Component {
         let habbits = this.props.habbits.map(habbit => {
             return <HabbitsTableRow key={habbit.id} 
                                 executions={habbit.executions} 
-                                name={habbit.name} />}
+                                name={habbit.name}
+                                lastDays={this.props.lastDays} />}
                                 );
         return(
             <tbody>

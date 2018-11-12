@@ -2,14 +2,23 @@ import React, {Component} from 'react';
 import Table from 'react-bootstrap/lib/Table';
 
 function HabbitsTableHeader(props) {
+    function setDates () {
+        let dates = [];
+        let lastDays = props.lastDays;
+        for (let key in lastDays) {
+            let date = (<th>{lastDays[key]}<br/>{key.slice(-2)}</th>);
+            dates.push(date);
+        }
+        return dates;
+    }
+
+    let dateElements = setDates();
+
     return(
         <thead>
             <tr>
                 <th></th>
-                <th>1</th>
-                <th>2</th>
-                <th>3</th>
-                <th>4</th>
+                {dateElements}
             </tr>
         </thead>
     );
