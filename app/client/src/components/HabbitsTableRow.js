@@ -10,6 +10,7 @@ class HabbitsTableRow extends React.Component {
             let toogle = <HabbitExecutionToogle 
                             key={date}
                             currentDate={date} 
+                            habbitId={this.props.id}
                             executions={this.props.executions} />;
             executionToogles.push(toogle);
         }

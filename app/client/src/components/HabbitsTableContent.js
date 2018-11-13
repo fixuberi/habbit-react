@@ -8,6 +8,7 @@ class HabbitsTableContent extends React.Component {
             return <HabbitsTableRow key={habbit.id} 
                                 executions={habbit.executions} 
                                 name={habbit.name}
+                                id={habbit.id}
                                 lastDays={this.props.lastDays} />}
                                 );
         return(
