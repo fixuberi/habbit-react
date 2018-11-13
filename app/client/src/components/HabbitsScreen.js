@@ -17,23 +17,40 @@ const table = [
     {
         "executions": [
             {
-                "date": "2018-11-04", 
+                "date": "2018-11-12", 
                 "habbit_id": 1, 
                 "id": 1
+            },
+            {
+                "date": "2018-11-11", 
+                "habbit_id": 1, 
+                "id": 2
             }
         ], 
         "id": 1, 
         "name": "wake up earlyssssss sssssssss sssssss", 
     }, 
     {
-        "executions": [], 
+        "executions": [
+            {
+                "date": "2018-11-09", 
+                "habbit_id": 1, 
+                "id": 3
+            }
+        ], 
         "id": 3, 
         "name": "do something", 
     }, 
     {
-        "executions": [], 
+        "executions": [
+            {
+                "date": "2018-11-12", 
+                "habbit_id": 1, 
+                "id": 1
+            }  
+        ], 
         "id": 4, 
-        "name": "something", 
+        "name": "be positivity", 
     }
 ];
 export default HabbitsScreen;

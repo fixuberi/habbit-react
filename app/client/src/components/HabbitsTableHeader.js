@@ -5,8 +5,8 @@ function HabbitsTableHeader(props) {
     function setDates () {
         let dates = [];
         let lastDays = props.lastDays;
-        for (let key in lastDays) {
-            let date = (<th>{lastDays[key]}<br/>{key.slice(-2)}</th>);
+        for (let day in lastDays) {
+            let date = (<th key={day}>{lastDays[day]}<br/>{day.slice(-2)}</th>);
             dates.push(date);
         }
         return dates;

@@ -7,10 +7,20 @@
   min-height: 10vh;
   font-size: calc(10px + 2vmin);
   color: white;
+  padding-top: 3vh;
 }
 
 .habbit-name {
-  width: 55%;
+  width: 100%;
+  text-align: left;
+}
+
+thead th, td{
+  text-align: center;
+}
+
+.glyphicon-ok {
+  color: green;
 }
 
 @keyframes App-logo-spin {
@@ -21,3 +31,4 @@
     transform: rotate(360deg);
   }
 }
+
