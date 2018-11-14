@@ -10,6 +10,13 @@ class HabbitsScreen extends React.Component {
         this.state = {
             habbits: []
         }
+        this.handleCreateHabbit = this.handleCreateHabbit.bind(this);
+    }
+
+    handleCreateHabbit(name) {
+        axios.post('http://localhost:3001/habbits', { name: name })
+            .then(response => this.setState({habbits: this.state.habbits.concat(response.data)}))
+            .catch(error => console.error(error.message)) 
     }
 
     componentDidMount() {
@@ -21,8 +28,8 @@ class HabbitsScreen extends React.Component {
     render() {
         return(
             <Grid>
-                <HabbitsScreenHeader />
-                <HabbitsTable habbits={this.state.habbits}/>
+                <HabbitsScreenHeader handleSubmit={this.handleCreateHabbit} />
+                <HabbitsTable habbits={this.state.habbits} />
             </Grid>
         );
     }

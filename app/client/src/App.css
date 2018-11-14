@@ -9,6 +9,10 @@
   color: white;
   padding-top: 3vh;
 }
+.main-header input {
+  color: black;
+  font-size: 2vh;
+}
 
 .habbit-name {
   width: 100%;
