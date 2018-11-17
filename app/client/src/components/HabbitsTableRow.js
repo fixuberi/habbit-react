@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Table from 'react-bootstrap/lib/Table';
+import {Link} from 'react-router-dom';
 import HabbitExecutionToogle from './HabbitExecutionToogle';
 
 class HabbitsTableRow extends React.Component {
@@ -20,7 +20,11 @@ class HabbitsTableRow extends React.Component {
         let executionToogles = this.setExecutionToogles();
         return(
             <tr>
-                <td className='habbit-name'>{this.props.name}</td>
+                <td className='habbit-name'>
+                    <Link to={`/habbits/${this.props.id}`}>
+                        {this.props.name}
+                    </Link>
+                </td>
                 {executionToogles}
              </tr>
         );
