@@ -1,10 +1,10 @@
-import React, {Component}  from 'react';
+import React, {Component} from 'react';
 import Row from 'react-bootstrap/lib/Row'
-import Col from 'react-bootstrap/lib/Col';
-import {Glyphicon} from 'react-bootstrap';
+import {Link} from 'react-router-dom';
+import {Col, Glyphicon} from 'react-bootstrap';
 import HabbitForm from './HabbitForm';
 
-class HabbitsScreenHeader extends React.Component {
+export default class HabbitInfoHeader extends React.Component {
     constructor(props) {
         super(props);
         this.state = { displayForm: false };
@@ -14,7 +14,7 @@ class HabbitsScreenHeader extends React.Component {
 
     hideForm() {
         this.setState({ displayForm: false })
-    }
+    } 
 
     showForm() {
         this.setState({ displayForm: true })
@@ -23,17 +23,22 @@ class HabbitsScreenHeader extends React.Component {
     render() {
         const defaultHeader = (
             <div className='main-header'>
-                <Col xs={8} xsOffset={2}>
-                    <div>{'my habbits'}</div>
+                <Col xs={2}>
+                    <Link to="/">
+                        <Glyphicon glyph='chevron-left'/>
+                    </Link>
+                </Col>
+                <Col xs={8}>
+                    {this.props.name}
                 </Col>
                 <Col xs={2}>
                     <Glyphicon 
-                        onClick={this.showForm}
-                        glyph='plus' />
+                        onClick={this.showForm} 
+                        glyph='pencil'/>
                 </Col>
             </div>
         );
-        const  habbitForm = (
+        const habbitForm = (
             <HabbitForm 
                 handleSubmit={this.props.handleSubmit}
                 hideForm={this.hideForm} />
@@ -43,8 +48,6 @@ class HabbitsScreenHeader extends React.Component {
             <Row>
                 {header}
             </Row>
-        );   
+        );
     }
 }
-
-export default HabbitsScreenHeader;

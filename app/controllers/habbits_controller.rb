@@ -8,7 +8,7 @@ class HabbitsController < ApplicationController
   end
 
   def show
-    json_response(@habbit)
+    render json: @habbit.as_json(include: {executions: {only: [:date, :id]}})
   end
 
   def create

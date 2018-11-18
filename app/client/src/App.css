@@ -8,10 +8,15 @@
   font-size: calc(10px + 2vmin);
   color: white;
   padding-top: 3vh;
+  text-align: center;
 }
 .main-header input {
   color: black;
   font-size: 2vh;
+}
+
+.main-header a {
+  color: white;
 }
 
 .habbit-name {
