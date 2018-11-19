@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
+import ExecutionsCalendar from './ExecutionsCalendar';
+import {Row} from 'react-bootstrap';
 
 export default class HabbitInfoContent extends React.Component {
     render() {
         return(
-            'content'
+             <ExecutionsCalendar executions={this.props.executions}/>
         );
     }
 }

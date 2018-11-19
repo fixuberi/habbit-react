@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import HabbitInfoHeader from './HabbitInfoHeader';
-import HabbitInfoContent from './HabbitInfoContent'
+import HabbitInfoContent from './HabbitInfoContent';
+import Grid from 'react-bootstrap/lib/Grid';
 
 export default class HabbitInfo extends React.Component {
     constructor(props) {
@@ -33,7 +34,7 @@ export default class HabbitInfo extends React.Component {
         const habbit = this.state.habbit;
         const executions = this.state.executions;
         return(
-            <div>
+            <Grid>
                 <HabbitInfoHeader 
                     name={habbit.name}
                     id={habbit.id} 
@@ -42,7 +43,7 @@ export default class HabbitInfo extends React.Component {
                     name={habbit.name}
                     id={habbit.id}
                     executions={executions} />
-            </div>
+            </Grid>
         );
     }
 }
