@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :habbit do
     name {Faker::Lorem.word}
+    user
 
     factory :habbit_with_executions do
       transient do

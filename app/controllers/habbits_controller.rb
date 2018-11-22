@@ -1,5 +1,6 @@
 class HabbitsController < ApplicationController
   before_action :set_habbit, only: [:show, :update, :destroy]
+  before_action :set_user, only: [:create]
 
   def index
     @habbits = Habbit.all
@@ -12,7 +13,7 @@ class HabbitsController < ApplicationController
   end
 
   def create
-    @habbit = Habbit.create!(habbit_params)
+    @habbit = @user.habbits.create!(habbit_params)
     json_response(@habbit, :created)
   end
 
@@ -29,10 +30,14 @@ class HabbitsController < ApplicationController
   private
 
   def habbit_params
-    params.permit(:name)
+    params.permit(:name, :user_id)
   end
 
   def set_habbit
     @habbit = Habbit.find(params[:id])
+  end
+
+  def set_user
+    @user = User.find(habbit_params[:user_id])
   end
 end

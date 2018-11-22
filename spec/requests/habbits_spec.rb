@@ -45,7 +45,8 @@ RSpec.describe 'Habbits API', type: :request do
   end
 
   describe 'POST /habbits' do
-    let(:valid_attributes) { { name: 'wake up early' } }
+    let(:user) { create(:user) }
+    let(:valid_attributes) { { name: 'wake up early', user_id: user.id } }
 
     context 'when the request is valid' do
       before { post '/habbits', params: valid_attributes }
@@ -60,7 +61,7 @@ RSpec.describe 'Habbits API', type: :request do
     end
 
     context 'when the request is invalid' do
-      before { post '/habbits', params: { name: '' } }
+      before { post '/habbits', params: { name: '', user_id: user.id } }
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)
