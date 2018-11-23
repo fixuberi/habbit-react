@@ -1,5 +1,5 @@
 class ExecutionsController < ApplicationController
-  before_action :set_habbit, only: [:index, :create]
+  before_action :set_habbit
   before_action :set_execution, only: [:destroy]
   def index
     @executions = @habbit.executions
@@ -24,9 +24,11 @@ class ExecutionsController < ApplicationController
 
   def set_habbit
     @habbit = Habbit.find(params[:habbit_id])
+    raise(ExceptionHandler::AuthenticationError, Message.unauthorized) if @habbit.user_id != current_user.id
   end
 
   def set_execution
     @execution = Execution.find(params[:id])
+    raise(ExceptionHandler::AuthenticationError, Message.unauthorized) if @habbit.user_id != current_user.id
   end
 end

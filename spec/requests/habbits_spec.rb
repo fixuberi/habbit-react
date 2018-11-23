@@ -1,11 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe 'Habbits API', type: :request do
-  let!(:habbits) { create_list(:habbit, 5) }
-  let(:habbit_id) { habbits.first.id }
+  let!(:user) { create(:user) }
+  let!(:users_habbits) { create_list(:habbit, 5, user: user) }
+  let(:users_habbit_id) { users_habbits.first.id }
+  let(:headers) do
+    {
+        'Authorization' =>  token_generator(user.id),
+        'Content-Type' =>  'application/json'
+    }
+  end
 
   describe 'GET /habbits' do
-    before { get '/habbits' }
+    before { get '/habbits', headers: headers }
 
     it 'return habbits' do
       expect(json).not_to be_empty
@@ -18,12 +25,12 @@ RSpec.describe 'Habbits API', type: :request do
   end
 
   describe 'GET /habbits/:id' do
-    before { get "/habbits/#{habbit_id}" }
+    before { get "/habbits/#{users_habbit_id}", headers: headers }
 
     context 'when the record exists' do
       it 'returns the habbit' do
         expect(json).not_to be_empty
-        expect(json['id']).to eq(habbit_id)
+        expect(json['id']).to eq(users_habbit_id)
       end
 
       it 'returns status code 200' do
@@ -32,7 +39,7 @@ RSpec.describe 'Habbits API', type: :request do
     end
 
     context 'when the record does not exist' do
-      let(:habbit_id) { 100 }
+      let(:users_habbit_id) { 100 }
 
       it 'returns status code 404' do
         expect(response).to have_http_status(404)
@@ -45,11 +52,10 @@ RSpec.describe 'Habbits API', type: :request do
   end
 
   describe 'POST /habbits' do
-    let(:user) { create(:user) }
     let(:valid_attributes) { { name: 'wake up early', user_id: user.id } }
 
     context 'when the request is valid' do
-      before { post '/habbits', params: valid_attributes }
+      before { post '/habbits', params: valid_attributes.to_json, headers: headers }
 
       it 'creates a habbit' do
         expect(json['name']).to eq(valid_attributes[:name])
@@ -61,7 +67,7 @@ RSpec.describe 'Habbits API', type: :request do
     end
 
     context 'when the request is invalid' do
-      before { post '/habbits', params: { name: '', user_id: user.id } }
+      before { post '/habbits', params: { name: '', user_id: user.id }.to_json, headers: headers }
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)
@@ -78,7 +84,7 @@ RSpec.describe 'Habbits API', type: :request do
     let(:valid_attributes) { { name: 'Shopping' } }
 
     context 'when the record exists' do
-      before { put "/habbits/#{habbit_id}", params: valid_attributes }
+      before { put "/habbits/#{users_habbit_id}", params: valid_attributes.to_json, headers: headers }
 
       it 'updates the record' do
         expect(response.body).to be_empty
@@ -91,7 +97,7 @@ RSpec.describe 'Habbits API', type: :request do
   end
 
   describe 'DELETE /habbits/:id' do
-    before { delete "/habbits/#{habbit_id}" }
+    before { delete "/habbits/#{users_habbit_id}", headers: headers }
 
     it 'returns status code 204' do
       expect(response).to have_http_status(204)

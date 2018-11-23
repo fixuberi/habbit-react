@@ -35,6 +35,7 @@ class HabbitsController < ApplicationController
 
   def set_habbit
     @habbit = Habbit.find(params[:id])
+    raise(ExceptionHandler::AuthenticationError, Message.unauthorized) if @habbit.user_id != current_user.id
   end
 
   def set_user

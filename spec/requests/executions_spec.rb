@@ -1,16 +1,23 @@
 require 'rails_helper'
 
 RSpec.describe 'Executions API', type: :request do
-  let!(:habbit) { create(:habbit) }
+  let!(:user) { create(:user) }
+  let!(:users_habbit) { create(:habbit, user: user) }
+  let(:headers) do
+    {
+        'Authorization' => token_generator(user.id),
+        'Content-Type' => 'application/json'
+    }
+  end
 
   describe 'GET /habbits/:habbit_id/executions' do
-    let!(:execution) {create(:execution, habbit_id: habbit.id)}
-    before { get "/habbits/#{habbit.id}/executions" }
+    let!(:execution) {create(:execution, habbit_id: users_habbit.id)}
+    before { get "/habbits/#{users_habbit.id}/executions", headers: headers }
 
     it 'return executions for habbit' do
       expect(json).not_to be_empty
       expect(json.size).to eq(1)
-      expect(json.first['habbit_id']).to eq(habbit.id)
+      expect(json.first['habbit_id']).to eq(users_habbit.id)
     end
 
     it 'returns status code 200' do
@@ -22,11 +29,11 @@ RSpec.describe 'Executions API', type: :request do
     let(:valid_attributes) { { date: DateTime.now } }
 
     context 'when the request is valid' do
-      before { post "/habbits/#{habbit.id}/executions", params: valid_attributes }
+      before { post "/habbits/#{users_habbit.id}/executions", params: valid_attributes.to_json, headers: headers }
 
       it 'creates a habbit' do
         expect(json['date']).to eq(valid_attributes[:date].strftime('%F'))
-        expect(json['habbit_id']).to eq(habbit.id)
+        expect(json['habbit_id']).to eq(users_habbit.id)
       end
 
       it 'returns status code 201' do
@@ -35,7 +42,7 @@ RSpec.describe 'Executions API', type: :request do
     end
 
     context 'when the request is invalid' do
-      before { post "/habbits/#{habbit.id}/executions", params: { date: '' } }
+      before { post "/habbits/#{users_habbit.id}/executions", params: { date: '' }.to_json, headers: headers }
 
       it 'returns status code 422' do
         expect(response).to have_http_status(422)
@@ -49,8 +56,8 @@ RSpec.describe 'Executions API', type: :request do
   end
 
   describe 'DELETE /habbits/:id' do
-    let!(:execution) {create(:execution, habbit_id: habbit.id)}
-    before { delete "/habbits/#{habbit.id}/executions/#{execution.id}" }
+    let!(:execution) {create(:execution, habbit_id: users_habbit.id)}
+    before { delete "/habbits/#{users_habbit.id}/executions/#{execution.id}", headers: headers }
 
     it 'returns status code 204' do
       expect(response).to have_http_status(204)
