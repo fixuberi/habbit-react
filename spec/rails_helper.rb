@@ -7,6 +7,7 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'rspec/rails'
 require 'database_cleaner'
 require 'support/request_spec_helper'
+require 'support/controller_spec_helper'
 
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|
@@ -67,4 +68,5 @@ RSpec.configure do |config|
   end
 
   config.include RequestSpecHelper, type: :request
+  config.include ControllerSpecHelper
 end
